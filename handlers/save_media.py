@@ -21,12 +21,15 @@ def generate_random_alphanumeric():
     return random_chars
 
 def get_short(url):
-    rget = requests.get(f"https://paisakamalo.in/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
-    rjson = rget.json()
-    if rjson["status"] == "success" or rget.status_code == 200:
-        return rjson["shortenedUrl"]
-    else:
-        return url
+    try:
+        rget = requests.get(f"https://{Config.SHORTLINK_URL}/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
+        rget.raise_for_status()
+        rjson = rget.json()
+        if rjson.get("status") == "success" and rget.status_code == 200:
+            return rjson["shortenedUrl"]
+    except (requests.exceptions.RequestException, ValueError) as e:
+        print(f"Error in get_short: {e}")
+    return url
 
 async def forward_to_channel(bot: Client, message: Message, editable: Message):
     try:
@@ -46,7 +49,6 @@ async def forward_to_channel(bot: Client, message: Message, editable: Message):
                 )
             )
         return await forward_to_channel(bot, message, editable)
-
 
 async def save_batch_media_in_channel(bot: Client, editable: Message, message_ids: list):
     try:
