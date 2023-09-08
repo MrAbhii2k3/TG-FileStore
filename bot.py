@@ -1,6 +1,7 @@
 # (c) @TeleRoidGroup || @PredatorHackerzZ
 
 import os
+import requests
 import asyncio
 import traceback
 from binascii import (
@@ -74,7 +75,7 @@ async def start(bot: Client, cmd: Message):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("BotsList Channel", url="https://t.me/TGRobot_List")
+                        InlineKeyboardButton("WebSite", url="https://www.kdramasflix.devpy.in/")
                     ],
                     [
                         InlineKeyboardButton("About Bot", callback_data="aboutbot"),
@@ -82,8 +83,8 @@ async def start(bot: Client, cmd: Message):
                         InlineKeyboardButton("Close 🚪", callback_data="closeMessage")
                     ],
                     [
-                        InlineKeyboardButton("Bots Channel", url="https://t.me/TeleRoidGroup"),
-                        InlineKeyboardButton(" Support Group", url="https://t.me/TeleRoid14")
+                        InlineKeyboardButton("Requests Group", url="https://t.me/kdrama_requests"),
+                        InlineKeyboardButton("Dramas Channel", url="https://t.me/KDramasFlix")
                     ]
                 ]
             )
@@ -111,7 +112,7 @@ async def start(bot: Client, cmd: Message):
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
 
 
-@Bot.on_message((filters.document | filters.video | filters.audio | filters.photo) & ~filters.chat(Config.DB_CHANNEL))
+@Bot.on_message((filters.document | filters.video | filters.audio) & ~filters.chat(Config.DB_CHANNEL))
 async def main(bot: Client, message: Message):
 
     if message.chat.type == enums.ChatType.PRIVATE:
@@ -318,7 +319,7 @@ async def button(bot: Client, cmd: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Source Codes of Bot",
+                        InlineKeyboardButton("Source Code Not Mine",
                                              url="https://github.com/PredatorHackerzZ/TG-FileStore")
                     ],
                     [
@@ -336,7 +337,7 @@ async def button(bot: Client, cmd: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Source Codes of Bot",
+                        InlineKeyboardButton("Source Code Not Minet",
                                              url="https://github.com/PredatorHackerzZ/TG-FileStore")
                     ],
                     [
@@ -354,7 +355,7 @@ async def button(bot: Client, cmd: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("BotsList Channel", url="https://t.me/PayForBotz")
+                        InlineKeyboardButton("WebSite", url="https://www.kdramasflix.devpy.in/")
                     ],
                     [
                         InlineKeyboardButton("About Bot", callback_data="aboutbot"),
@@ -362,8 +363,8 @@ async def button(bot: Client, cmd: CallbackQuery):
                         InlineKeyboardButton("Close 🚪", callback_data="closeMessage")
                     ],
                     [
-                        InlineKeyboardButton("Support Group", url="https://t.me/TeleRoid14"),
-                        InlineKeyboardButton("Bots Channel", url="https://t.me/TeleRoidGroup")
+                        InlineKeyboardButton("Requests Group", url="https://t.me/kdrama_requests"),
+                        InlineKeyboardButton("Dramas Channel", url="https://t.me/KDramasFlix")
                     ]
                 ]
             )
@@ -411,8 +412,8 @@ async def button(bot: Client, cmd: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Support Group", url="https://t.me/TeleRoid14"),
-                        InlineKeyboardButton("Bots Channel", url="https://t.me/TeleRoidGroup")
+                        InlineKeyboardButton("Requests Group", url="https://t.me/kdrama_requests"),
+                        InlineKeyboardButton("Dramas Channel", url="https://t.me/KDramasFlix")
                     ],
                     [
                         InlineKeyboardButton("About Bot", callback_data="aboutbot"),
