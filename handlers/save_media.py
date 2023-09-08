@@ -20,15 +20,23 @@ def generate_random_alphanumeric():
     random_chars = ''.join(random.choice(characters) for _ in range(8))
     return random_chars
 
+# def get_short(url):
+#     rget = requests.get(f"https://{Config.SHORTLINK_URL}/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
+#         rget.raise_for_status()
+#         rjson = rget.json()
+#         if rjson.get("status") == "success" and rget.status_code == 200:
+#             return rjson["shortenedUrl"]
+#     except (requests.exceptions.RequestException, ValueError) as e:
+#         print(f"Error in get_short: {e}")
+#     return url
+
 def get_short(url):
     rget = requests.get(f"https://{Config.SHORTLINK_URL}/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
-        rget.raise_for_status()
-        rjson = rget.json()
-        if rjson.get("status") == "success" and rget.status_code == 200:
-            return rjson["shortenedUrl"]
-    except (requests.exceptions.RequestException, ValueError) as e:
-        print(f"Error in get_short: {e}")
-    return url
+    rjson = rget.json()
+    if rjson["status"] == "success" or rget.status_code == 200:
+        return rjson["shortenedUrl"]
+    else:
+        return url
 
 async def forward_to_channel(bot: Client, message: Message, editable: Message):
     try:
