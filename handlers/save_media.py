@@ -21,8 +21,7 @@ def generate_random_alphanumeric():
     return random_chars
 
 def get_short(url):
-    try:
-        rget = requests.get(f"https://{Config.SHORTLINK_URL}/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
+    rget = requests.get(f"https://{Config.SHORTLINK_URL}/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
         rget.raise_for_status()
         rjson = rget.json()
         if rjson.get("status") == "success" and rget.status_code == 200:
