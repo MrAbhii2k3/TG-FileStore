@@ -14,6 +14,23 @@ from pyrogram.types import (
 from pyrogram.errors import FloodWait
 from handlers.helpers import str_to_b64
 
+# def generate_random_alphanumeric():
+#     """Generate a random 8-letter alphanumeric string."""
+#     characters = string.ascii_letters + string.digits
+#     random_chars = ''.join(random.choice(characters) for _ in range(8))
+#     return random_chars
+
+# def get_short(url):
+#     try:
+#         rget = requests.get(f"https://{Config.SHORTLINK_URL}/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
+#         rget.raise_for_status()
+#         rjson = rget.json()
+#         if rjson.get("status") == "success" and rget.status_code == 200:
+#             return rjson["shortenedUrl"]
+#     except (requests.exceptions.RequestException, ValueError) as e:
+#         print(f"Error in get_short: {e}")
+#     return url
+
 def generate_random_alphanumeric():
     """Generate a random 8-letter alphanumeric string."""
     characters = string.ascii_letters + string.digits
@@ -22,7 +39,16 @@ def generate_random_alphanumeric():
 
 def get_short(url):
     try:
-        rget = requests.get(f"https://{Config.SHORTLINK_URL}/api?api={Config.SHORTLINK_API}&url={url}&alias={generate_random_alphanumeric()}")
+        headers = {
+            'User-Agent': 'Your User Agent',
+            'Accept': 'application/json',
+        }
+        params = {
+            'api': Config.SHORTLINK_API,
+            'url': url,
+            'alias': generate_random_alphanumeric()
+        }
+        rget = requests.get(f'https://{Config.SHORTLINK_URL}/api', headers=headers, params=params)
         rget.raise_for_status()
         rjson = rget.json()
         if rjson.get("status") == "success" and rget.status_code == 200:
@@ -30,6 +56,7 @@ def get_short(url):
     except (requests.exceptions.RequestException, ValueError) as e:
         print(f"Error in get_short: {e}")
     return url
+
 
 async def forward_to_channel(bot: Client, message: Message, editable: Message):
     try:
